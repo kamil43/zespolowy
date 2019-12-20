@@ -1,5 +1,4 @@
 package com.zespolowy.spring.dao;
-
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -9,12 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.zespolowy.spring.model.Users;
+import com.zespolowy.spring.model.Presence;
+
 
 @Repository
-public class UserDaoImp implements UserDao{
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserDaoImp.class);
+public class PresenceDaoImp implements PresenceDao{
+
+	private static final Logger logger = LoggerFactory.getLogger(PresenceDaoImp.class);
 	
 	private SessionFactory sessionFactory;
 	
@@ -23,49 +23,45 @@ public class UserDaoImp implements UserDao{
 	}
 	
 	@Override
-	public void addUser(Users u) {
+	public void addPresence(Presence u) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(u);
-		logger.info("user added ");
+		logger.info("Presence added ");
 	}
 
 	
 	@Override
-	public void updateUser(Users u) {
+	public void updatePresence(Presence u) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(u);
-		logger.info("user updated");
+		logger.info("Presence updated");
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Users> listUsers() {
+	public List<Presence> listPresence() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Users> usersList = session.createQuery("from Users").list();
-		for(Users u : usersList) {
-			logger.info("users list : " +u.getName());
+		List<Presence> PresenceList = session.createQuery("from Presence").list();
+		for(Presence u : PresenceList) {
+			logger.info("Presence list : " +u.getUser());
 		}
-		return usersList;
+		return PresenceList;
 	}
 
 	@Override
-	public Users getUserById(int id) {
+	public Presence getPresenceById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Users u = (Users) session.load(Users.class, new Integer(id));
-		logger.info("user loaded " +u.getName());
+		Presence u = (Presence) session.load(Presence.class, new Integer(id));
+		logger.info("user loaded " +u.getUser());
 		return u;
 	}
 
 	@Override
-	public void removeUser(int it) {
+	public void removePresence(int it) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Users u = (Users) session.load(Users.class, new Integer(it));
+		Presence u = (Presence) session.load(Presence.class, new Integer(it));
 		if(null != u)
 			session.delete(u);
-		logger.info("user deleted " + u.getName());
+		logger.info("user deleted " + u.getUser());
 	}
-	
-
-	
-
 }

@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	@Transactional
 	public void removeUser(int id) {
-		this.userDao.removePerson(id);	
+		this.userDao.removeUser(id);	
 	}
 	
 }

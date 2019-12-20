@@ -1,5 +1,4 @@
 package com.zespolowy.spring.dao;
-
 import java.util.List;
 
 import com.zespolowy.spring.model.Users;
@@ -10,7 +9,7 @@ public interface UserDao {
 	public void updateUser(Users u);
 	public List<Users> listUsers();
 	public Users getUserById(int id);
-	public void removePerson(int it);
+	public void removeUser(int it);
 	
 	
 }
